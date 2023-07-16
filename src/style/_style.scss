@@ -1,0 +1,206 @@
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.hide {
+  display: none;
+}
+
+/* HEADER */
+
+.header {
+  width: 100%;
+  font-size: 2.5rem;
+  padding: 10px 20px;
+
+  &-wrapper {
+    position: relative;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-left {
+    display: flex;
+    grid-area: logo;
+    &__logo {
+      height: 40px;
+      width: 40px;
+      user-select: none;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: $white;
+
+      &-accent {
+        color: $sun;
+      }
+    }
+  }
+
+  &-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &-search {
+    display: flex;
+    justify-content: center;
+
+    &__input {
+      border-radius: 20px 0 0 20px;
+      padding: 4px 0 4px 16px;
+      border: 2px solid $dark-blue;
+      border-right: none !important;
+      transition: border 0.3s;
+
+      &:hover,
+      &:hover + .header-search__submit {
+        border: 2px solid $white;
+        transition: border 0.3s;
+      }
+
+      &:focus,
+      &:focus + .header-search__submit {
+        border: 2px solid $white;
+        transition: border 0.3s;
+      }
+    }
+
+    &__submit {
+      cursor: pointer;
+      width: 56px;
+      border-radius: 0 20px 20px 0;
+      border: 2px solid $dark-blue;
+      border-left: none !important;
+    }
+
+    &__icon {
+      height: 20px;
+      width: 20px;
+      user-select: none;
+    }
+  }
+
+  &-search > * {
+    background-color: $dark-blue;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    color: $white;
+    transition: border 0.3s;
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+  }
+
+  &-settings {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-settings > * {
+    font-weight: 700;
+    margin-left: 8px;
+    background-color: $dark-blue;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 16px;
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid $dark-blue;
+
+    &:hover,
+    &.active {
+      border: 2px solid $white;
+    }
+  }
+}
+
+/* MAIN */
+
+.main {
+  &-wrapper {
+    margin-top: 40px;
+  }
+
+  &-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    &__geo {
+      font-size: 2.5em;
+      font-weight: 700;
+    }
+
+    &__time {
+      color: $sun;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+  }
+}
+
+/* FOOTER */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  gap: 10px;
+  color: $white;
+}
+
+.nickname {
+  font-size: 20px;
+  color: $white;
+  margin-right: 5px;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.github-icon {
+  animation: blinking 5s infinite alternate;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 15px 2px $sun;
+  }
+}
+
+/* MEDIA QUERIES */
+
+/* ANIMATIONS */
+
+@keyframes blinking {
+  from {
+    fill: $black;
+  }
+  to {
+    fill: $white;
+    box-shadow: 0 0 15px 5px $sun;
+  }
+}
