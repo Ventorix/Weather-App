@@ -1,4 +1,12 @@
 import { format } from 'date-fns';
+import sun from '/src/img/sun.svg';
+import moon from '/src/img/moon.svg';
+import cloudy from '/src/img/cloudy-day.svg';
+import cloud from '/src/img/cloud.svg';
+import rain from '/src/img/rainy.svg';
+import lightning from '/src/img/lightning.svg';
+import snow from '/src/img/snow.svg';
+import mist from '/src/img/mist.svg';
 
 const dom = (() => {
   const mainContainer = document.querySelector('.main-wrapper');
@@ -69,11 +77,55 @@ const dom = (() => {
     return { windDesc, roundedSpeed };
   }
 
+  function getIcon(iconId) {
+    let icon;
+    console.log(iconId);
+    switch (iconId) {
+      case '01d':
+        return (icon = sun);
+      case '01n':
+        return (icon = moon);
+      case '02d':
+        return (icon = cloudy);
+      case '02n':
+        return (icon = moon);
+      case '03d':
+        return (icon = cloudy);
+      case '03n':
+        return (icon = moon);
+      case '04d':
+      case '04n':
+        return (icon = cloud);
+      case '09d':
+      case '09n':
+        return (icon = cloud);
+      case '10d':
+        return (icon = rain);
+      case '10n':
+        return (icon = rain);
+      case '11d':
+      case '11n':
+        return (icon = lightning);
+      case '13d':
+      case '13n':
+        return (icon = snow);
+      case '50d':
+      case '50n':
+        return (icon = mist);
+      default:
+    }
+    return false;
+  }
+
+  function capitalize(str) {
+    str = str.charAt(0).toUpperCase() + str.slice(1);
+    return str;
+  }
+
   function changeUnits(units) {
     const metricButton = document.querySelector('.header-settings__metric');
     const imperialButton = document.querySelector('.header-settings__imperial');
     const tempUnits = document.querySelectorAll('.data-unit');
-    console.log(tempUnits);
     // const speedUnits = document.querySelectorAll('.unit-speed');
 
     let tempUnit;
@@ -106,11 +158,17 @@ const dom = (() => {
     const dataWeatherDesc = document.querySelector('#weatherDescription');
     const dataWindDesc = document.querySelector('#weatherWindDescription');
     const dataFeelsLike = document.querySelector('#weatherFeelsLike');
+    const iconWeather = document.querySelector('#weatherIcon');
+    const currentIcon = document.createElement('img');
+    currentIcon.classList.add('weather-icon');
+    currentIcon.src = getIcon(current.icon);
+    iconWeather.innerHTML = '';
+    iconWeather.appendChild(currentIcon);
 
     dataLocation.textContent = `${city}, ${country}`;
     dataTime.textContent = formatTime(current.time, units).formattedTime;
     dataTemp.textContent = current.temp;
-    dataWeatherDesc.textContent = getWind(current.windSpeed, units).windDesc;
+    dataWeatherDesc.textContent = capitalize(current.tempDescription);
     dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
     dataFeelsLike.textContent = `Feels like ${current.feelsLike}`;
   }

@@ -36,6 +36,7 @@
     "eslint-plugin-optimize-regex": "^1.2.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
+    "file-loader": "^6.2.0",
     "gh-pages": "^5.0.0",
     "group-css-media-queries-loader": "^4.3.0",
     "html-loader": "^4.2.0",

@@ -166,12 +166,18 @@
     align-items: center;
     flex-direction: column;
     gap: 15px;
+    margin-top: 20px;
   }
 
   .weather {
     &-main {
       display: flex;
       align-items: center;
+    }
+
+    &-icon {
+      width: 64px;
+      height: 64px;
     }
 
     &-temp {
@@ -184,24 +190,28 @@
     }
 
     &-desc {
-      font-size: 24px;
+      font-size: 26px;
+      font-weight: 800;
     }
 
     &-feels {
       display: flex;
+      font-weight: 600;
       &-temp {
         font-size: 18px;
+        font-weight: 600;
       }
     }
 
     &-wind {
       font-size: 18px;
+      font-weight: 600;
     }
 
     &-info {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 11px;
       align-items: center;
     }
 
