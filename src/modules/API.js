@@ -1,7 +1,7 @@
 import { addSeconds, fromUnixTime } from 'date-fns';
 
 const weatherAPI = (() => {
-  const API_KEY = 'c93fd1817f3fbe42aeac0a63076603b9';
+  const API_KEY = '20f7632ffc2c022654e4093c6947b4f4';
 
   async function processData(data) {
     const regionNamesInEnglish = new Intl.DisplayNames(['en'], {

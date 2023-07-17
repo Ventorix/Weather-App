@@ -69,12 +69,50 @@ const dom = (() => {
     return { windDesc, roundedSpeed };
   }
 
+  function changeUnits(units) {
+    const metricButton = document.querySelector('.header-settings__metric');
+    const imperialButton = document.querySelector('.header-settings__imperial');
+    const tempUnits = document.querySelectorAll('.data-unit');
+    console.log(tempUnits);
+    // const speedUnits = document.querySelectorAll('.unit-speed');
+
+    let tempUnit;
+    let windUnit;
+
+    if (units === 'metric') {
+      metricButton.classList.add('active');
+      imperialButton.classList.remove('active');
+      tempUnit = '°C';
+      windUnit = 'm/s';
+    } else {
+      imperialButton.classList.add('active');
+      metricButton.classList.remove('active');
+      tempUnit = '°F';
+      windUnit = 'mph';
+    }
+
+    tempUnits.forEach((unit) => {
+      unit.textContent = tempUnit;
+    });
+    // speedUnits.forEach((unit) => {
+    //   unit.textContent = windUnit;
+    // });
+  }
+
   function renderForecast(city, country, current, units) {
     const dataLocation = document.querySelector('#geoLocation');
     const dataTime = document.querySelector('#timeLocation');
+    const dataTemp = document.querySelector('#weatherTemp');
+    const dataWeatherDesc = document.querySelector('#weatherDescription');
+    const dataWindDesc = document.querySelector('#weatherWindDescription');
+    const dataFeelsLike = document.querySelector('#weatherFeelsLike');
 
     dataLocation.textContent = `${city}, ${country}`;
     dataTime.textContent = formatTime(current.time, units).formattedTime;
+    dataTemp.textContent = current.temp;
+    dataWeatherDesc.textContent = getWind(current.windSpeed, units).windDesc;
+    dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
+    dataFeelsLike.textContent = `Feels like ${current.feelsLike}`;
   }
 
   function renderApp(data) {
@@ -91,6 +129,7 @@ const dom = (() => {
 
       const { city, country, current, daily, units } = data;
 
+      changeUnits(units);
       renderForecast(city, country, current, units);
     }
   }

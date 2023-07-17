@@ -8,6 +8,14 @@
   display: none;
 }
 
+.error {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.6em;
+  font-weight: 600;
+  color: $red;
+}
+
 /* HEADER */
 
 .header {
@@ -150,6 +158,55 @@
       color: $sun;
       font-size: 1.2em;
       font-weight: 600;
+    }
+  }
+
+  &-weather {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .weather {
+    &-main {
+      display: flex;
+      align-items: center;
+    }
+
+    &-temp {
+      .data-temp {
+        font-size: 64px;
+      }
+      .data-unit {
+        font-size: 64px;
+      }
+    }
+
+    &-desc {
+      font-size: 24px;
+    }
+
+    &-feels {
+      display: flex;
+      &-temp {
+        font-size: 18px;
+      }
+    }
+
+    &-wind {
+      font-size: 18px;
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+    }
+
+    &-feels {
+      display: flex;
     }
   }
 }

@@ -5,6 +5,13 @@ const handlers = (() => {
   const header = document.querySelector('.header-wrapper');
   const searchInput = document.querySelector('#searchInput');
 
+  function interval(func, temp) {
+    setInterval(() => {
+      func();
+      console.log('tic');
+    }, temp);
+  }
+
   async function load(input = 'Berlin', units = 'metric') {
     const weatherData = await api.getLocData(input, units);
     dom.renderApp(weatherData);
