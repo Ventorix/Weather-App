@@ -15,25 +15,23 @@
   <body>
     <div class="wrapper">
       <header class="header">
-        <div class="header-wrapper">
-          <div class="header-left">
-            <img class="header-left__logo" src="./img/logo.svg" alt="logo">
-            <h1 class="header-left__title">Weather<span class="header-left__title-accent">Today</span></h1>
-          </div>
-          <div class="header-center">
-            <form action="#" id="headerSearch" class="header-search" method="get">
-              <input type="search" id="searchInput" class="header-search__input" placeholder="Search location"
-                autocomplete="off">
-              <button type="submit" class="header-search__submit submit">
-                <img class="header-search__icon submit" src="./img/searchWhite.svg" alt="logo">
-              </button>
-            </form>
-          </div>
-          <div class="header-right">
-            <div class="header-settings">
-              <button type="button" class="header-settings__metric">°C, m/s</button>
-              <button type="button" class="header-settings__imperial">°F, mph</button>
-            </div>
+        <div class="header-left">
+          <img class="header-left__logo" src="./img/logo.svg" alt="logo">
+          <h1 class="header-left__title">Weather<span class="header-left__title-accent">Today</span></h1>
+        </div>
+        <div class="header-center">
+          <form action="#" id="headerSearch" class="header-search" method="get">
+            <input type="search" id="searchInput" class="header-search__input" placeholder="Search location"
+              autocomplete="off">
+            <button type="submit" class="header-search__submit submit">
+              <img class="header-search__icon submit" src="./img/searchWhite.svg" alt="logo">
+            </button>
+          </form>
+        </div>
+        <div class="header-right">
+          <div class="header-settings">
+            <button type="button" class="header-settings__metric">°C, m/s</button>
+            <button type="button" class="header-settings__imperial">°F, mph</button>
           </div>
         </div>
         <div class="info">
@@ -43,31 +41,29 @@
       </header>
 
       <main class="main">
-        <div class="main-wrapper">
-          <section class="main-heading">
-            <h2 id="geoLocation" class="main-heading__geo"></h2>
-            <p id="timeLocation" class="main-heading__time"></p>
-          </section>
-          <section class="main-weather">
-            <div class="weather-main">
-              <span class="weather-icon" id="weatherIcon"></span>
-              <div class="weather-temp">
-                <span class="data-temp" id="weatherTemp"></span>
-                <span class="data-unit" id="weatherUnit"></span>
-              </div>
+        <section class="main-heading">
+          <h2 id="geoLocation" class="main-heading__geo"></h2>
+          <p id="timeLocation" class="main-heading__time"></p>
+        </section>
+        <section class="main-weather">
+          <div class="weather-main">
+            <span class="weather-icon" id="weatherIcon"></span>
+            <div class="weather-temp">
+              <span class="data-temp" id="weatherTemp"></span>
+              <span class="data-unit" id="weatherUnit"></span>
             </div>
-            <div class="weather-info">
-              <p class="weather-desc" id="weatherDescription"></p>
-              <div class="weather-feels">
-                <span class="weather-feels-temp" id="weatherFeelsLike"></span>
-                <span class="data-unit" id="weatherUnit"></span>
-              </div>
-              <p class=" weather-wind" id="weatherWindDescription"></p>
+          </div>
+          <div class="weather-info">
+            <p class="weather-desc" id="weatherDescription"></p>
+            <div class="weather-feels">
+              <span class="weather-feels-temp" id="weatherFeelsLike"></span>
+              <span class="data-unit" id="weatherUnit"></span>
             </div>
-          </section>
-          <section class="main-details"></section>
-          <section class="main-daily"></section>
-        </div>
+            <p class=" weather-wind" id="weatherWindDescription"></p>
+          </div>
+        </section>
+        <section class="main-details"></section>
+        <section class="main-daily"></section>
       </main>
     </div>
 

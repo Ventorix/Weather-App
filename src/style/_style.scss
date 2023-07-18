@@ -1,11 +1,21 @@
 .wrapper {
-  display: flex;
+  display: grid;
   min-height: 100vh;
-  flex-direction: column;
+  grid-template-columns: 1fr minmax(0px, 768px) 1fr;
+  grid-template-rows: 92px auto 1fr 70px;
+  grid-template-areas:
+    "header header header"
+    ". error ."
+    ". main ."
+    "footer footer footer";
 }
 
 .hide {
   display: none;
+}
+
+.info {
+  grid-area: error;
 }
 
 .error {
@@ -22,14 +32,13 @@
   width: 100%;
   font-size: 2.5rem;
   padding: 10px 20px;
-
-  &-wrapper {
-    position: relative;
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  grid-area: header;
+  display: grid;
+  grid-template-areas: "logo search settings";
+  align-items: center;
+  grid-template-columns: 1fr 360px 1fr;
+  padding: 0 32px;
+  margin: 32px 0 16px;
 
   &-left {
     display: flex;
@@ -52,11 +61,8 @@
   }
 
   &-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    grid-area: search;
+    justify-self: center;
   }
 
   &-search {
@@ -108,8 +114,8 @@
   }
 
   &-right {
-    display: flex;
-    align-items: center;
+    grid-area: settings;
+    justify-self: end;
   }
 
   &-settings {
@@ -139,11 +145,22 @@
 /* MAIN */
 
 .main {
-  &-wrapper {
-    margin-top: 40px;
-  }
+  margin-top: 40px;
+  grid-area: main;
+  display: grid;
+  row-gap: 32px;
+  column-gap: 32px;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: repeat(3, minmax(min-content, max-content));
+  grid-template-areas:
+    "title title"
+    "weather details"
+    "daily daily";
+  margin: 32px;
+  justify-items: center;
 
   &-heading {
+    grid-area: title;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -163,7 +180,6 @@
 
   &-weather {
     display: flex;
-    align-items: center;
     flex-direction: column;
     gap: 15px;
     margin-top: 20px;
@@ -173,6 +189,7 @@
     &-main {
       display: flex;
       align-items: center;
+      gap: 10px;
     }
 
     &-icon {
@@ -181,6 +198,8 @@
     }
 
     &-temp {
+      font-weight: 700;
+
       .data-temp {
         font-size: 64px;
       }
@@ -196,28 +215,75 @@
 
     &-feels {
       display: flex;
-      font-weight: 600;
+      color: $sun;
+
       &-temp {
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 700;
       }
     }
 
     &-wind {
+      color: $sun;
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     &-info {
       display: flex;
       flex-direction: column;
       gap: 11px;
-      align-items: center;
     }
 
     &-feels {
       display: flex;
     }
+  }
+
+  &-details {
+    grid-area: details;
+    display: grid;
+    gap: 32px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .detail {
+    font-weight: 700;
+
+    &-title {
+      color: $sun;
+    }
+
+    &-data {
+      font-size: 24px;
+      margin-top: 4px;
+    }
+  }
+
+  .uvi {
+    padding: 1px 11px;
+    border-radius: 50%;
+
+    &-green {
+      background-color: $lighten-green;
+    }
+
+    &-yellow {
+      background-color: $sun;
+    }
+
+    &-orange {
+      background-color: $orange;
+    }
+
+    &-red {
+      background-color: $red;
+    }
+  }
+  &-daily {
+    grid-area: daily;
+    width: 100%;
+    max-width: 480px;
   }
 }
 

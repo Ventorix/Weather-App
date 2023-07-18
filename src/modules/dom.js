@@ -9,7 +9,7 @@ import snow from '/src/img/snow.svg';
 import mist from '/src/img/mist.svg';
 
 const dom = (() => {
-  const mainContainer = document.querySelector('.main-wrapper');
+  const mainContainer = document.querySelector('.main');
 
   function formatTime(data, units) {
     let formattedTime;
@@ -117,6 +117,20 @@ const dom = (() => {
     return false;
   }
 
+  function getUviColor(uvi) {
+    let uviColor = '';
+    if (uvi <= 2) {
+      uviColor = 'uvi-green';
+    } else if (uvi <= 5) {
+      uviColor = 'uvi-yellow';
+    } else if (uvi <= 7) {
+      uviColor = 'uvi-orange';
+    } else if (uvi > 7) {
+      uviColor = 'uvi-red';
+    }
+    return uviColor;
+  }
+
   function capitalize(str) {
     str = str.charAt(0).toUpperCase() + str.slice(1);
     return str;
@@ -126,7 +140,7 @@ const dom = (() => {
     const metricButton = document.querySelector('.header-settings__metric');
     const imperialButton = document.querySelector('.header-settings__imperial');
     const tempUnits = document.querySelectorAll('.data-unit');
-    // const speedUnits = document.querySelectorAll('.unit-speed');
+    const speedUnits = document.querySelectorAll('.unit-speed');
 
     let tempUnit;
     let windUnit;
@@ -146,9 +160,61 @@ const dom = (() => {
     tempUnits.forEach((unit) => {
       unit.textContent = tempUnit;
     });
-    // speedUnits.forEach((unit) => {
-    //   unit.textContent = windUnit;
-    // });
+
+    speedUnits.forEach((unit) => {
+      unit.textContent = windUnit;
+    });
+  }
+
+  function createDetails(section, details) {
+    section.innerHTML = '';
+    const titles = [
+      'Wind',
+      'Humidity',
+      'UV Index',
+      'Visibility',
+      'Cloudiness',
+      'Chance of rain',
+      'Sunrise',
+      'Sunset',
+      'Pressure',
+    ];
+
+    const uvi = document.createElement('span');
+    const speedUnit = document.createElement('span');
+    speedUnit.classList.add('unit-speed');
+
+    for (let i = 0; i < 9; i++) {
+      const detailsElem = document.createElement('div');
+      const detailTitle = document.createElement('p');
+      const detailData = document.createElement('p');
+      detailsElem.classList.add('detail');
+      detailTitle.classList.add('detail-title');
+      detailData.classList.add('detail-data');
+
+      detailTitle.textContent = titles[i];
+
+      if (titles[i] == 'UV Index') {
+        uvi.textContent = details[titles[i]];
+        uvi.classList.add('uvi');
+        uvi.classList.add(getUviColor(details[titles[i]]));
+
+        section.appendChild(detailsElem);
+        detailsElem.appendChild(detailTitle);
+        detailsElem.appendChild(detailData);
+        detailData.appendChild(uvi);
+        continue;
+      }
+
+      detailData.textContent = details[titles[i]];
+      section.appendChild(detailsElem);
+      detailsElem.appendChild(detailTitle);
+      detailsElem.appendChild(detailData);
+
+      if (i === 0) {
+        detailData.appendChild(speedUnit);
+      }
+    }
   }
 
   function renderForecast(city, country, current, units) {
@@ -160,6 +226,21 @@ const dom = (() => {
     const dataFeelsLike = document.querySelector('#weatherFeelsLike');
     const iconWeather = document.querySelector('#weatherIcon');
     const currentIcon = document.createElement('img');
+    const detailsSection = document.querySelector('.main-details');
+
+    const detailsObject = {
+      Wind: getWind(current.windSpeed, units).roundedSpeed,
+      Humidity: current.humidity + '%',
+      'UV Index': current.uvi,
+      Visibility: current.visibility + 'km',
+      Cloudiness: current.clouds + '%',
+      'Chance of rain': current.chanceOfRain + '%',
+      Sunrise: formatTime(current.sunriseTime, units).formattedSunriseTime,
+      Sunset: formatTime(current.sunsetTime, units).formattedSunsetTime,
+      Pressure: current.pressure + 'mb',
+    };
+
+    console.log(detailsObject);
     currentIcon.classList.add('weather-icon');
     currentIcon.src = getIcon(current.icon);
     iconWeather.innerHTML = '';
@@ -171,6 +252,8 @@ const dom = (() => {
     dataWeatherDesc.textContent = capitalize(current.tempDescription);
     dataWindDesc.textContent = getWind(current.windSpeed, units).windDesc;
     dataFeelsLike.textContent = `Feels like ${current.feelsLike}`;
+
+    createDetails(detailsSection, detailsObject);
   }
 
   function renderApp(data) {
@@ -179,16 +262,16 @@ const dom = (() => {
 
     if (data.cod) {
       error.className = 'error';
-      mainContainer.className = 'main-wrapper hide';
+      mainContainer.className = 'main hide';
       error.textContent = data.message.charAt(0).toUpperCase() + data.message.slice(1);
     } else {
       error.className = 'error hide';
-      mainContainer.className = 'main-wrapper';
+      mainContainer.className = 'main';
 
       const { city, country, current, daily, units } = data;
 
-      changeUnits(units);
       renderForecast(city, country, current, units);
+      changeUnits(units);
     }
   }
 

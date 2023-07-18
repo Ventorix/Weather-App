@@ -2,7 +2,7 @@ import dom from './dom';
 import api from './API';
 
 const handlers = (() => {
-  const header = document.querySelector('.header-wrapper');
+  const header = document.querySelector('.header');
   const searchInput = document.querySelector('#searchInput');
 
   function interval(func, temp) {
@@ -18,6 +18,9 @@ const handlers = (() => {
   }
 
   function clickHandler() {
+    const metricButton = document.querySelector('.header-settings__metric');
+    const imperialButton = document.querySelector('.header-settings__imperial');
+
     let input;
     let units;
     header.addEventListener('click', async (e) => {
@@ -29,9 +32,15 @@ const handlers = (() => {
         input = searchInput.value;
         load(input, units);
       } else if (e.target.classList.contains('header-settings__metric')) {
+        if (metricButton.classList.contains('active')) {
+          return;
+        }
         units = 'metric';
         load(input, units);
       } else if (e.target.classList.contains('header-settings__imperial')) {
+        if (imperialButton.classList.contains('active')) {
+          return;
+        }
         units = 'imperial';
         load(input, units);
       }

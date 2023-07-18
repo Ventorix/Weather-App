@@ -34,7 +34,7 @@ const weatherAPI = (() => {
           fromUnixTime(forecastData.current.sunset),
           forecastData.timezone_offset + new Date().getTimezoneOffset() * 60,
         ),
-        moonPhase: forecastData.daily[0].moon_phase,
+        pressure: forecastData.current.pressure,
         time: addSeconds(
           new Date(),
           forecastData.timezone_offset + new Date().getTimezoneOffset() * 60,
