@@ -312,7 +312,7 @@ const dom = (() => {
       dailyWeatherNightTempUnit.className = 'data-unit';
 
       const dailyWind = document.createElement('p');
-      dailyWind.classList.add('daily-item-wind');
+      dailyWind.classList.add('daily-item__wind');
 
       const dailyWindIcon = document.createElement('img');
       dailyWindIcon.classList.add('daily-weather-icon');

@@ -130,11 +130,14 @@
   &-settings {
     display: flex;
     justify-content: center;
+
+    &__imperial {
+      margin-left: 8px;
+    }
   }
 
   &-settings > * {
     font-weight: 700;
-    margin-left: 8px;
     background-color: $dark-blue;
     transition: all 0.3s;
     cursor: pointer;
@@ -263,7 +266,7 @@
 
     &-data {
       font-size: 24px;
-      margin-top: 4px;
+      margin-top: 8px;
     }
   }
 
@@ -301,6 +304,7 @@
       font-size: 32px;
       margin-bottom: 32px;
     }
+
     &-list {
       .daily-item {
         display: grid;
@@ -368,6 +372,103 @@
 }
 
 /* MEDIA QUERIES */
+
+@media only screen and (max-width: 992px) {
+  .wrapper {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto minmax(calc(100vh - 187px), auto) 70px;
+  }
+
+  .header {
+    grid-template-rows: auto 40px auto;
+    row-gap: 16px;
+    grid-template-areas:
+      ". logo ."
+      ". search ."
+      ". settings .";
+
+    &-left {
+      justify-self: center;
+    }
+
+    &-right {
+      justify-self: center;
+    }
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, minmax(min-content, max-content));
+    grid-template-areas:
+      "title"
+      "weather"
+      "details"
+      "daily";
+
+    &-weather {
+      flex-direction: row;
+    }
+
+    &-details {
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .wrapper {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto minmax(calc(100vh - 227px), auto) 70px;
+  }
+
+  .main {
+    margin: 16px;
+
+    &-weather {
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .header {
+    grid-template-columns: 1fr 280px 1fr;
+
+    &-right {
+      margin-top: 0;
+    }
+
+    &-search__input {
+      width: 224px;
+    }
+  }
+
+  .daily-item {
+    grid-template-columns: 128px 92px !important;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    text-align: center;
+    grid-template-areas:
+      "day wind"
+      "day-temp night-temp";
+
+    &__date {
+      grid-area: day;
+    }
+
+    &__day-temp {
+      grid-area: day-temp;
+    }
+
+    &__night-temp {
+      grid-area: night-temp;
+    }
+
+    &__wind {
+      grid-area: wind;
+    }
+  }
+}
 
 /* ANIMATIONS */
 
