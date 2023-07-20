@@ -5,7 +5,7 @@
   <p align="center">
     Weather application used to show forecast from OpenWeather API.
     <br />
-    <a href="[https://artis-dev.github.io/weather-app/](https://github.com/Ventorix/Weather-App)"><strong>View Demo</strong></a>
+    <a href="https://ventorix.github.io/Weather-App/"><strong>View Demo</strong></a>
   </p>
 </div>
 
