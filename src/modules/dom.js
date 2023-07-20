@@ -7,9 +7,22 @@ import rain from '/src/img/rainy.svg';
 import lightning from '/src/img/lightning.svg';
 import snow from '/src/img/snow.svg';
 import mist from '/src/img/mist.svg';
+import wind from '/src/img/wind.svg';
 
 const dom = (() => {
   const mainContainer = document.querySelector('.main');
+
+  function loading(state) {
+    const loadingSpinner = document.querySelector('.loading');
+
+    if (state === 'loading') {
+      loadingSpinner.classList.remove('hide');
+      mainContainer.classList.add('hide');
+    } else if (state === 'finished') {
+      loadingSpinner.classList.add('hide');
+      mainContainer.classList.remove('hide');
+    }
+  }
 
   function formatTime(data, units) {
     let formattedTime;
@@ -148,13 +161,13 @@ const dom = (() => {
     if (units === 'metric') {
       metricButton.classList.add('active');
       imperialButton.classList.remove('active');
-      tempUnit = '°C';
-      windUnit = 'm/s';
+      tempUnit = ' °C';
+      windUnit = ' m/s';
     } else {
       imperialButton.classList.add('active');
       metricButton.classList.remove('active');
-      tempUnit = '°F';
-      windUnit = 'mph';
+      tempUnit = ' °F';
+      windUnit = ' mph';
     }
 
     tempUnits.forEach((unit) => {
@@ -232,12 +245,12 @@ const dom = (() => {
       Wind: getWind(current.windSpeed, units).roundedSpeed,
       Humidity: current.humidity + '%',
       'UV Index': current.uvi,
-      Visibility: current.visibility + 'km',
+      Visibility: current.visibility + ' km',
       Cloudiness: current.clouds + '%',
       'Chance of rain': current.chanceOfRain + '%',
       Sunrise: formatTime(current.sunriseTime, units).formattedSunriseTime,
       Sunset: formatTime(current.sunsetTime, units).formattedSunsetTime,
-      Pressure: current.pressure + 'mb',
+      Pressure: current.pressure + ' mb',
     };
 
     console.log(detailsObject);
@@ -256,6 +269,79 @@ const dom = (() => {
     createDetails(detailsSection, detailsObject);
   }
 
+  function renderWeeklyForecast(daily, units) {
+    console.log(daily);
+    const dailyList = document.querySelector('.daily-list');
+
+    dailyList.textContent = '';
+
+    for (let i = 0; i < daily.length; i++) {
+      const dailyItem = document.createElement('div');
+      dailyItem.classList.add('daily-item');
+
+      const dailyDate = document.createElement('p');
+      dailyDate.classList.add('daily-item__date');
+      dailyDate.textContent = formatTime(daily[i].date, units).formattedWeekDay;
+
+      const dailyWeatherDay = document.createElement('p');
+      dailyWeatherDay.classList.add('daily-item__day-temp');
+
+      const dailyWeatherIcon = document.createElement('img');
+      dailyWeatherIcon.classList.add('daily-weather-icon');
+      dailyWeatherIcon.src = getIcon(daily[i].icon);
+
+      const dailyWeatherDayTemp = document.createElement('span');
+      dailyWeatherDayTemp.className = 'data-daily-temp';
+      dailyWeatherDayTemp.textContent = daily[i].dayTemp;
+
+      const dailyWeatherDayTempUnit = document.createElement('span');
+      dailyWeatherDayTempUnit.classList.add('data-unit');
+
+      const dailyWeatherNight = document.createElement('p');
+      dailyWeatherNight.classList.add('daily-item__night-temp');
+
+      const dailyWeatherNightIcon = document.createElement('img');
+      dailyWeatherNightIcon.classList.add('daily-weather-icon');
+      dailyWeatherNightIcon.src = getIcon('01n');
+
+      const dailyWeatherNightTemp = document.createElement('span');
+      dailyWeatherNightTemp.classList.add('data-daily__night-temp');
+      dailyWeatherNightTemp.textContent = daily[i].nightTemp;
+
+      const dailyWeatherNightTempUnit = document.createElement('span');
+      dailyWeatherNightTempUnit.className = 'data-unit';
+
+      const dailyWind = document.createElement('p');
+      dailyWind.classList.add('daily-item-wind');
+
+      const dailyWindIcon = document.createElement('img');
+      dailyWindIcon.classList.add('daily-weather-icon');
+      dailyWindIcon.src = wind;
+
+      const dailyWindSpeed = document.createElement('span');
+      dailyWindSpeed.classList.add('data-daily_wind-speed');
+      dailyWindSpeed.textContent = getWind(daily[i].windSpeed, units).roundedSpeed;
+
+      const dailyWindSpeedUnit = document.createElement('span');
+      dailyWindSpeedUnit.classList.add('unit-speed');
+
+      dailyList.appendChild(dailyItem);
+      dailyItem.appendChild(dailyDate);
+      dailyItem.appendChild(dailyWeatherDay);
+      dailyWeatherDay.appendChild(dailyWeatherIcon);
+      dailyWeatherDay.appendChild(dailyWeatherDayTemp);
+      dailyWeatherDay.appendChild(dailyWeatherDayTempUnit);
+      dailyItem.appendChild(dailyWeatherNight);
+      dailyWeatherNight.appendChild(dailyWeatherNightIcon);
+      dailyWeatherNight.appendChild(dailyWeatherNightTemp);
+      dailyWeatherNight.appendChild(dailyWeatherNightTempUnit);
+      dailyItem.appendChild(dailyWind);
+      dailyWind.appendChild(dailyWindIcon);
+      dailyWind.appendChild(dailyWindSpeed);
+      dailyWind.appendChild(dailyWindSpeedUnit);
+    }
+  }
+
   function renderApp(data) {
     console.log(data);
     const error = document.querySelector('.error');
@@ -271,11 +357,13 @@ const dom = (() => {
       const { city, country, current, daily, units } = data;
 
       renderForecast(city, country, current, units);
+      renderWeeklyForecast(daily, units);
       changeUnits(units);
     }
   }
 
   return {
+    loading,
     renderApp,
   };
 })();

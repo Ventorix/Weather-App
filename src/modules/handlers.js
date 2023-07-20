@@ -13,8 +13,10 @@ const handlers = (() => {
   }
 
   async function load(input = 'Berlin', units = 'metric') {
+    dom.loading('loading');
     const weatherData = await api.getLocData(input, units);
     dom.renderApp(weatherData);
+    dom.loading('finished');
   }
 
   function clickHandler() {

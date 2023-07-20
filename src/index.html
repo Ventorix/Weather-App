@@ -34,11 +34,14 @@
             <button type="button" class="header-settings__imperial">°F, mph</button>
           </div>
         </div>
-        <div class="info">
-          <div class="loading"></div>
-          <p class="error"></p>
-        </div>
       </header>
+
+      <div class="info">
+        <div class="loading hide">
+          <img class="loading-icon" src="./img/loading.svg" alt="loading">
+        </div>
+        <p class="error"></p>
+      </div>
 
       <main class="main">
         <section class="main-heading">
@@ -63,7 +66,10 @@
           </div>
         </section>
         <section class="main-details"></section>
-        <section class="main-daily"></section>
+        <section class="main-daily">
+          <h3 class="daily-header">Weekly Forecast</h3>
+          <div class="daily-list"></div>
+        </section>
       </main>
     </div>
 

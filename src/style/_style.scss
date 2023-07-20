@@ -11,11 +11,20 @@
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .info {
   grid-area: error;
+  display: flex;
+  justify-self: center;
+
+  .loading {
+    margin-top: 20px;
+    animation: rotate 1.5s linear 0s infinite normal;
+    height: 64px;
+    width: 64px;
+  }
 }
 
 .error {
@@ -145,11 +154,9 @@
 /* MAIN */
 
 .main {
-  margin-top: 40px;
   grid-area: main;
   display: grid;
-  row-gap: 32px;
-  column-gap: 32px;
+  row-gap: 40px;
   grid-template-columns: auto 1fr;
   grid-template-rows: repeat(3, minmax(min-content, max-content));
   grid-template-areas:
@@ -172,17 +179,17 @@
     }
 
     &__time {
-      color: $sun;
+      color: $transparent-white;
       font-size: 1.2em;
       font-weight: 600;
     }
   }
 
   &-weather {
+    align-self: center;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 20px;
   }
 
   .weather {
@@ -215,7 +222,7 @@
 
     &-feels {
       display: flex;
-      color: $sun;
+      color: $transparent-white;
 
       &-temp {
         font-size: 18px;
@@ -224,7 +231,7 @@
     }
 
     &-wind {
-      color: $sun;
+      color: $transparent-white;
       font-size: 18px;
       font-weight: 700;
     }
@@ -251,7 +258,7 @@
     font-weight: 700;
 
     &-title {
-      color: $sun;
+      color: $transparent-white;
     }
 
     &-data {
@@ -280,13 +287,49 @@
       background-color: $red;
     }
   }
+
   &-daily {
     grid-area: daily;
     width: 100%;
-    max-width: 480px;
+    max-width: 448px;
+  }
+
+  .daily {
+    &-header {
+      font-weight: 700;
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 32px;
+    }
+    &-list {
+      .daily-item {
+        display: grid;
+        grid-template-columns: 108px 82px 78px 100px;
+        font-size: 20px;
+        column-gap: 32px;
+        row-gap: 4px;
+
+        &__date {
+          font-weight: 800;
+          font-size: 20px;
+        }
+      }
+
+      .daily-item:not(:last-child) {
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid $transparent-white;
+      }
+
+      .daily-weather-icon {
+        vertical-align: -0.125em;
+        height: 1em;
+        width: 1em;
+        margin-right: 2px;
+      }
+    }
   }
 }
-
 /* FOOTER */
 
 .footer {
@@ -335,5 +378,14 @@
   to {
     fill: $white;
     box-shadow: 0 0 15px 5px $sun;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
